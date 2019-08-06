@@ -33,10 +33,6 @@ public class Flight extends BaseEntity {
 	@Column(name = "journey_time")
 	private LocalDateTime journeyTime;
 	
-	@OneToOne
-	@JoinColumn(name = "flight_id")
-	private Rating rating;
-	
 	@ManyToMany
 	private List<Client> clients;
 	

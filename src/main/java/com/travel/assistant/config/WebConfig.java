@@ -57,13 +57,13 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		super.configure(web);
-	}
+	} 
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and()
 		.authorizeRequests()
-		.antMatchers("/auth/register","/auth/login","/logout","/auth/registrationConfirm/**").permitAll()
+		.antMatchers("/auth/register","/auth/login","/logout","/auth/registrationConfirm/**","/random-hotels").permitAll()
 		.anyRequest().fullyAuthenticated().and()
 		.logout()
         .permitAll()

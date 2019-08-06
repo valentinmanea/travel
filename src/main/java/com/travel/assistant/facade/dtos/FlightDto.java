@@ -3,6 +3,8 @@ package com.travel.assistant.facade.dtos;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.travel.assistant.proxy.dto.CityDto;
+
 public class FlightDto {
 	public long id;
 	public double price;
@@ -13,7 +15,6 @@ public class FlightDto {
 	public LocalDateTime journeyTime;
 	public RatingDto rating;
 	public List<UserDto> users;
-	public List<HotelDto> hotels;
 	public CityDto destinationCity;
 	public CityDto startCity;
 }

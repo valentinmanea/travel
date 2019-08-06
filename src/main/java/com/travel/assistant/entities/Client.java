@@ -22,13 +22,7 @@ public class Client extends BaseEntity {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "client")
-	private List<Rating> rating;
 	
-	@JsonIgnore
-	@OneToMany
-	private List<HousingReservation> housingReservations;
 	
 	@ManyToMany
 	@JoinTable(name = "flight_reservation", 
