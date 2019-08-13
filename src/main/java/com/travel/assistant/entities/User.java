@@ -1,25 +1,23 @@
 package com.travel.assistant.entities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import lombok.Data;
 
 @Entity
 public class User extends BaseEntity implements UserDetails{
@@ -38,7 +36,54 @@ public class User extends BaseEntity implements UserDetails{
 	
 	@ManyToOne(fetch = FetchType.EAGER)
     private Role role;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="user")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	public List<HotelOffer> hotelOffers;
+	
+	@OneToMany(mappedBy="user")
+	@LazyCollection(LazyCollectionOption.FALSE) 
+	public List<FlightOffer> flightOffers;
+	
+	@OneToMany(mappedBy="rentalUser")
+	@LazyCollection(LazyCollectionOption.FALSE) 
+	public List<CarOffer> carOffers;
 
+	public void addHotelOffer(HotelOffer hotelOffer) {
+		if(this.hotelOffers == null) {
+			this.hotelOffers = Arrays.asList(hotelOffer);
+		}else {
+			this.hotelOffers.add(hotelOffer);
+		}
+	}
+	
+	public List<HotelOffer> getAllHotelOffers(){
+		return this.hotelOffers;
+	}
+	
+	public void addFlightOffer(FlightOffer flightOffer) {
+		if(this.flightOffers == null) {
+			this.flightOffers = Arrays.asList(flightOffer);
+		}else {
+			this.flightOffers.add(flightOffer);
+		}
+	}
+	public void buyCarOffer(CarOffer carOffer) {
+		if(this.carOffers == null) {
+			this.carOffers = Arrays.asList(carOffer);
+		}else {
+			this.carOffers.add(carOffer);
+		}
+	}
+	
+	public List<FlightOffer> getAllFlightOffers(){
+		return this.flightOffers;
+	}
+	public List<CarOffer> getAllCarOffers(){
+		return this.carOffers;
+	}
+	
 	@Override
 	public boolean isEnabled() {
 		return enabled;

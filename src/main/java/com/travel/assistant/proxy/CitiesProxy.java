@@ -64,6 +64,7 @@ public class CitiesProxy {
 				countEndpoint, HttpMethod.GET, entity, GeoDbDto.class, headers).getBody().metaData.totalCount;
 		Random r = new Random();
 		Integer offset = r.nextInt(Integer.parseInt(count)-1);
+		System.out.println("Cauta cu offset: "+ offset);
 		return getCityEndpoint.replace("OFFSET", offset.toString());
 	}
 	@GetMapping("/cities/10")

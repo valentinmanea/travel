@@ -2,7 +2,6 @@ package com.travel.assistant.proxy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -18,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import com.travel.assistant.proxy.dto.CityDto;
 import com.travel.assistant.proxy.dto.HotelFirstLevelDto;
 import com.travel.assistant.proxy.dto.HotelSecondLevelDto;
+import com.travel.assistant.services.SearchService;
 
 
 @Service
@@ -32,6 +32,9 @@ public class HotelProxy {
 	
 	@Autowired
 	private CitiesProxy cityProxy;
+	
+	@Autowired
+	private SearchService searchService;
 	
 	@GetMapping("/hotels")
 	public HotelFirstLevelDto getHotels() {
@@ -51,6 +54,7 @@ public class HotelProxy {
 		HttpEntity entity = new HttpEntity(headers);
 		endpoint = endpoint.replace("LATITUDE", city.latitude);
 		endpoint = endpoint.replace("LONGITUDE", city.longitude);
+		searchService.addToHistory("HOTEL_SEARCH", cityName);
 		return restTemplate.exchange(
 				endpoint, HttpMethod.GET, entity, HotelFirstLevelDto.class, headers).getBody();
 	}
@@ -70,6 +74,8 @@ public class HotelProxy {
 			endpoint = endpoint.replace("LONGITUDE", city.longitude);
 			hotels.addAll(restTemplate.exchange(
 					endpoint, HttpMethod.GET, entity, HotelFirstLevelDto.class, headers).getBody().hotelSecondLevelDto);
+			endpoint = endpoint.replace(city.latitude,"LATITUDE" );
+			endpoint = endpoint.replace(city.longitude,"LONGITUDE");
 		}
 		firstLevelDto.hotelSecondLevelDto = hotels;
 		return firstLevelDto;
