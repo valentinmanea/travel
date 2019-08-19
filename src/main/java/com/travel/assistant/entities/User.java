@@ -49,7 +49,20 @@ public class User extends BaseEntity implements UserDetails{
 	@OneToMany(mappedBy="rentalUser")
 	@LazyCollection(LazyCollectionOption.FALSE) 
 	public List<CarOffer> carOffers;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="user")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	public List<SearchHistory> histories;
 
+	public void addHistory(SearchHistory history) {
+		if(this.histories == null) {
+			this.histories = Arrays.asList(history);
+		}else {
+			this.histories.add(history);
+		}
+	}
+	
 	public void addHotelOffer(HotelOffer hotelOffer) {
 		if(this.hotelOffers == null) {
 			this.hotelOffers = Arrays.asList(hotelOffer);
@@ -75,6 +88,10 @@ public class User extends BaseEntity implements UserDetails{
 		}else {
 			this.carOffers.add(carOffer);
 		}
+	}
+	
+	public List<SearchHistory> getAllHistories(){
+		return this.histories;
 	}
 	
 	public List<FlightOffer> getAllFlightOffers(){

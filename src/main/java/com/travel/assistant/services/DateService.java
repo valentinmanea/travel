@@ -1,4 +1,4 @@
-package com.travel.assistant.controllers;
+package com.travel.assistant.services;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

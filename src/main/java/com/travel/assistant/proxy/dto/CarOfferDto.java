@@ -1,4 +1,4 @@
-package com.travel.assistant.dtos;
+package com.travel.assistant.proxy.dto;
 
 import com.travel.assistant.entities.Car;
 import com.travel.assistant.enums.Currency;

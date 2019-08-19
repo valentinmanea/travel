@@ -53,8 +53,11 @@ public class CitiesProxy {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity entity = new HttpEntity(headers);
 //		String endpointProcessed = addOffset(getCityEndpoint);
-		return restTemplate.exchange(
-				countEndpoint + "&namePrefix=" + cityName, HttpMethod.GET, entity, GeoDbDto.class, headers).getBody().data.get(0);
+		List<CityDto> cities = restTemplate.exchange(
+				countEndpoint + "&namePrefix=" + cityName, HttpMethod.GET, entity, GeoDbDto.class, headers).getBody().data;
+		if(!cities.isEmpty()) {
+			return cities.get(0);
+		}else return null;
 	}
 	String addOffset(String getCityEndpoint){
 		HttpHeaders headers = new HttpHeaders();

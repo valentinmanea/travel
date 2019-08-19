@@ -3,10 +3,10 @@ package com.travel.assistant.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.travel.assistant.controllers.DateService;
-import com.travel.assistant.dtos.CarOfferDto;
 import com.travel.assistant.entities.Car;
 import com.travel.assistant.entities.CarOffer;
+import com.travel.assistant.proxy.dto.CarOfferDto;
+import com.travel.assistant.services.DateService;
 
 @Service
 public class CarOfferMapper {

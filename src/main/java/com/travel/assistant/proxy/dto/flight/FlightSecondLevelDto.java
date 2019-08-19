@@ -3,7 +3,7 @@ package com.travel.assistant.proxy.dto.flight;
 import java.util.Date;
 import java.util.List;
 
-public class SecondLevelFlightDto {
+public class FlightSecondLevelDto {
 	public String type;
 	public String id;
 	public String source;

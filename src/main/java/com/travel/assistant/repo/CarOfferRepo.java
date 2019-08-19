@@ -1,13 +1,12 @@
-package com.travel.assistant.controllers;
+package com.travel.assistant.repo;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 
-import com.travel.assistant.dtos.CarOfferSearchDto;
 import com.travel.assistant.entities.CarOffer;
-import com.travel.assistant.repo.BaseRepository;
+import com.travel.assistant.proxy.dto.CarOfferSearchDto;
 
 public interface CarOfferRepo extends BaseRepository<CarOffer>{
 	

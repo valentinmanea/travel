@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.travel.assistant.dtos.CarOfferDto;
-import com.travel.assistant.dtos.CarOfferSearchDto;
 import com.travel.assistant.entities.Car;
 import com.travel.assistant.entities.CarOffer;
 import com.travel.assistant.entities.User;
 import com.travel.assistant.mapper.CarOfferMapper;
+import com.travel.assistant.proxy.dto.CarOfferDto;
+import com.travel.assistant.proxy.dto.CarOfferSearchDto;
+import com.travel.assistant.repo.CarOfferRepo;
+import com.travel.assistant.repo.CarRepo;
 import com.travel.assistant.repo.UserRepo;
+import com.travel.assistant.services.DateService;
 import com.travel.assistant.services.SearchService;
 
 @RestController

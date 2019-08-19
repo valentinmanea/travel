@@ -6,4 +6,6 @@ public interface IataCodeAndCityNameRepo  extends BaseRepository<IataCodeAndCity
 
 	IataCodeAndCityName findFirstByCityName(String cityName);
 
+	IataCodeAndCityName findFirstByIataCode(String iataCodeForDestinationCity);
+
 }
