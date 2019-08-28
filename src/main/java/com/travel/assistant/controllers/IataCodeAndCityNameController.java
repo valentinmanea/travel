@@ -46,11 +46,14 @@ public class IataCodeAndCityNameController {
 	public IataCodeAndCityName getIataCodeByName(@RequestParam("name") String name) {
 		return iataCodeAndCityNameRepo.findAll().stream().filter(i-> name.equals(i.cityName)).findAny().get();
 	}
+	
 	@PostConstruct()
 	public void execute() {
+		int contor = 0;
 		iataCodeAndCityNameRepo.deleteAll();
 		String alfabet = "abcdefghijklmnopqrstuvwxyz";
 		for(int i = 0; i < alfabet.length();i++) {
+			System.out.println("i= " + i);
 			alfabet.charAt(i);
 			String endpointFixed = endpoint.replace("KEYWORD", alfabet.charAt(i) +"");
 			System.out.println("endpoint: " + endpoint);
@@ -61,6 +64,7 @@ public class IataCodeAndCityNameController {
 			List<IataCodeDto> list = restTemplate.exchange(
 					endpointFixed, HttpMethod.GET, entity, AirportFirstLevelDto.class, headers).getBody().data;
 			for(IataCodeDto item: list) {
+				System.out.println("contor= "+ contor++);
 				iataCodeAndCityNameRepo.save(new IataCodeAndCityName(item.iataCode,item.address.cityName));
 			}
 		}

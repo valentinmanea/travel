@@ -18,8 +18,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true, 
+value = {"hotelOffers"})
 public class User extends BaseEntity implements UserDetails{
 	
 	@Column(name = "username")
@@ -39,14 +44,17 @@ public class User extends BaseEntity implements UserDetails{
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="user")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	public List<HotelOffer> hotelOffers;
 	
 	@OneToMany(mappedBy="user")
+	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE) 
 	public List<FlightOffer> flightOffers;
 	
 	@OneToMany(mappedBy="rentalUser")
+	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE) 
 	public List<CarOffer> carOffers;
 	
@@ -55,7 +63,7 @@ public class User extends BaseEntity implements UserDetails{
 	@LazyCollection(LazyCollectionOption.FALSE)
 	public List<SearchHistory> histories;
 
-	public void addHistory(SearchHistory history) {
+	public void addHistory(SearchHistory history) { 
 		if(this.histories == null) {
 			this.histories = Arrays.asList(history);
 		}else {
@@ -70,7 +78,7 @@ public class User extends BaseEntity implements UserDetails{
 			this.hotelOffers.add(hotelOffer);
 		}
 	}
-	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	public List<HotelOffer> getAllHotelOffers(){
 		return this.hotelOffers;
 	}
@@ -89,14 +97,17 @@ public class User extends BaseEntity implements UserDetails{
 			this.carOffers.add(carOffer);
 		}
 	}
-	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	public List<SearchHistory> getAllHistories(){
 		return this.histories;
 	}
-	
+
+	@JsonProperty(access = Access.WRITE_ONLY)
 	public List<FlightOffer> getAllFlightOffers(){
 		return this.flightOffers;
 	}
+
+	@JsonProperty(access = Access.WRITE_ONLY)
 	public List<CarOffer> getAllCarOffers(){
 		return this.carOffers;
 	}

@@ -72,11 +72,7 @@ public class AuthController {
 		
 		return principal;
 	}
-	@CrossOrigin
-	@RequestMapping(value="/salut",method = RequestMethod.GET)
-	public String salut() {
-		return "salut";
-	}
+
 	@RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
 	public String confirmRegistration(@RequestParam("token") String token) {
 		String messageValue = "Success";
